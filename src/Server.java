@@ -1,11 +1,12 @@
 import javax.swing.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
     //UI
@@ -15,8 +16,8 @@ public class Server {
     private JScrollPane scroll = new JScrollPane(Console, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     //Server
     ServerSocket server;
-    boolean launched = false;
     int index = 0;
+    List<ConnectedClient> clientList = new ArrayList<>();
 
     public Server(){
         println("Starting server!");
@@ -29,13 +30,13 @@ public class Server {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-//                    if(e.getKeyCode() == KeyEvent.VK_ENTER){
-//                        try {
-//                            write();
-//                        } catch (IOException ex) {
-//                            println(ex.getMessage());
-//                        }
-//                    }
+                    if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                        try {
+                            write();
+                        } catch (IOException ex) {
+                            println(ex.getMessage());
+                        }
+                    }
             }
         });
     }
@@ -52,11 +53,18 @@ public class Server {
             new Thread(()->{
                 index++;
                 ConnectedClient client = new ConnectedClient(this, socket, index);
-                client.readMessages();
+                clientList.add(client);
+                client.read();
             }).start();
     }
-    private void setState(boolean b) {
-        launched = b;
+
+    private void write() throws IOException {
+        String message = input.getText();
+        for(ConnectedClient client : clientList){
+            client.getOutput().writeUTF(message);
+            println(message);
+        }
+        input.setText("");
     }
 
     public void println(String text){

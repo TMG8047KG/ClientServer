@@ -1,22 +1,21 @@
-import com.sun.source.tree.Scope;
-
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class Client {
     //UI
     private JTextArea Console;
     private JPanel panel1;
-    private JTextField Input;
+    private JTextField input;
     private JScrollPane scroll = new JScrollPane(Console, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     //Client
     Socket socket;
+    DataInputStream in;
     DataOutputStream output;
 
 
@@ -25,11 +24,12 @@ public class Client {
         try {
             socket = new Socket("localhost", 12181);
             output = new DataOutputStream(socket.getOutputStream());
+            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             println("Connected to the server!");
         } catch (IOException e) {
             println(e.getMessage());
         }
-        Input.addKeyListener(new KeyAdapter() {
+        input.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
@@ -44,16 +44,29 @@ public class Client {
         });
     }
 
+    public void read() {
+        String message = "";
+        try {
+            while (!message.equals("dc")){
+                message = in.readUTF();
+                println("Server: " + message);
+            }
+        } catch (IOException e) {
+            println(e.getMessage());
+        }
+    }
+
     private void write() throws IOException {
-        String message = Input.getText();
+        String message = input.getText();
         output.writeUTF(message);
         println(message);
-        Input.setText("");
+        input.setText("");
     }
 
     private void close() throws IOException {
         socket.close();
         output.close();
+        in.close();
     }
 
     public void println(String text){
@@ -72,5 +85,6 @@ public class Client {
         frame.setSize(800, 500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        client.read();
     }
 }

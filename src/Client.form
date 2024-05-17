@@ -19,7 +19,7 @@
           <lineWrap value="true"/>
         </properties>
       </component>
-      <component id="33d06" class="javax.swing.JTextField" binding="Input">
+      <component id="33d06" class="javax.swing.JTextField" binding="input">
         <constraints border-constraint="South"/>
         <properties>
           <alignmentX value="0.0"/>
