@@ -1,7 +1,8 @@
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.DataOutputStream;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,18 +12,26 @@ import java.util.List;
 public class Server {
     //UI
     private JTextArea Console;
-    private JPanel panel1;
+    private JPanel mainPanel;
     private JTextField input;
+    private JPanel ConsolePanel;
     private JScrollPane scroll = new JScrollPane(Console, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     //Server
     ServerSocket server;
+    static int port;
     int index = 0;
     List<ConnectedClient> clientList = new ArrayList<>();
 
     public Server(){
+        Console.setBorder(BorderFactory.createEmptyBorder());
+        input.setBorder(BorderFactory.createEmptyBorder());
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        ConsolePanel.add(scroll);
+
+
         println("Starting server!");
         try {
-            server = new ServerSocket(12181);
+            server = new ServerSocket(port);
         } catch (IOException e) {
             println(e.getMessage());
         }
@@ -76,17 +85,18 @@ public class Server {
     }
 
     public static void main(String[] args) {
+        PreConfig config = new PreConfig(0);
+        port = config.getPort();
         Server server = new Server();
         JFrame frame = new JFrame("Server");
-        server.panel1.add(server.scroll);
-        frame.setContentPane(server.panel1);
+        frame.setContentPane(server.mainPanel);
         frame.setSize(800, 500);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
         try {
             server.startListening();
-        } catch (IOException e) {
-            server.println(e.getMessage());
+        } catch (IOException er) {
+            server.println(er.getMessage());
         }
     }
 }
