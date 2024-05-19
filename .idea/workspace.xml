@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7e420e1-9757-4817-b449-6b92185aea00" name="Changes" comment="ignored files">
+    <list default="true" id="a7e420e1-9757-4817-b449-6b92185aea00" name="Changes" comment="Server messages">
+      <change afterPath="$PROJECT_DIR$/src/PreConfig.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/PreConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ConnectedClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ConnectedClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,12 +41,15 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Client.executor": "Run",
+    "Application.PreConfig.executor": "Run",
     "Application.Server.executor": "Run",
     "Application.Window.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true"
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "discord-application"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -54,6 +60,13 @@
   <component name="RunManager" selected="Application.Client">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Client" />
+      <module name="ServerClientTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PreConfig" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PreConfig" />
       <module name="ServerClientTest" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -70,6 +83,7 @@
       <list>
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.PreConfig" />
       </list>
     </recent_temporary>
   </component>
@@ -82,10 +96,20 @@
       <option name="presentableId" value="Default" />
       <updated>1715882359006</updated>
     </task>
+    <task id="LOCAL-00001" summary="Server messages">
+      <option name="closed" value="true" />
+      <created>1715978540316</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715978540317</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ignored files" />
-    <option name="LAST_COMMIT_MESSAGE" value="ignored files" />
+    <MESSAGE value="Server messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Server messages" />
   </component>
 </project>
