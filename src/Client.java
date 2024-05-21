@@ -29,14 +29,16 @@ public class Client {
         ConsolePanel.add(scroll);
 
         println("Starting client!");
-        try {
-            socket = new Socket(address, port);
-            output = new DataOutputStream(socket.getOutputStream());
-            in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            println("Connected to the server!");
-        } catch (IOException e) {
-            println(e.getMessage());
-        }
+
+        //Figure this out(make it able to reconnect)
+        new Thread(() -> {
+            try {
+                connect();
+            } catch (IOException e) {
+                println(e.getMessage());
+            }
+        }).start();
+
         input.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -50,6 +52,13 @@ public class Client {
                 }
             }
         });
+    }
+
+    private void connect() throws IOException {
+        socket = new Socket(address, port);
+        output = new DataOutputStream(socket.getOutputStream());
+        in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        println("Connected to the server!");
     }
 
     public void read() {
