@@ -69,9 +69,9 @@ public class Server {
 
     private void write() throws IOException {
         String message = input.getText();
+        println(message);
         for(ConnectedClient client : clientList){
             client.getOutput().writeUTF(message);
-            println(message);
         }
         input.setText("");
     }
