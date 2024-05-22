@@ -33,7 +33,6 @@ public class Client {
         //Figure this out(make it able to reconnect)
         connect();
 
-
         input.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -107,7 +106,7 @@ public class Client {
         JFrame frame = new JFrame("Client");
         frame.setContentPane(client.mainPanel);
         frame.setSize(800, 500);
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 }
