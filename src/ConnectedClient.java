@@ -16,7 +16,6 @@ public class ConnectedClient {
         this.socket = clientSocket;
         this.id = id;
         try {
-            server.println("Client " + id + ": Client Connected");
             out = new DataOutputStream(clientSocket.getOutputStream());
             in = new DataInputStream(new BufferedInputStream(clientSocket.getInputStream()));
         } catch (IOException e) {

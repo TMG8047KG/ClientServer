@@ -18,8 +18,8 @@ public class Client {
     Socket socket;
     static String address;
     static int port;
-    DataInputStream in;
-    DataOutputStream output;
+    public DataInputStream in;
+    public DataOutputStream output;
 
 
     public Client(){
@@ -54,8 +54,9 @@ public class Client {
             try {
                 socket = new Socket(address, port);
                 output = new DataOutputStream(socket.getOutputStream());
+                output.writeUTF("Connected!");
                 in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-                output.write(666);
+                println("Connected to the server!");
                 read();
             }catch (Exception e){
                 println(e.getMessage());
@@ -69,15 +70,11 @@ public class Client {
         }).start();
     }
 
-    public void read() {
+    public void read() throws IOException {
         String message = "";
-        try {
-            while (!message.equals("dc")){
-                message = in.readUTF();
-                println("Server: " + message);
-            }
-        } catch (IOException e) {
-            println(e.getMessage());
+        while (!message.equals("dc")){
+            message = in.readUTF();
+            println("Server: " + message);
         }
     }
 
