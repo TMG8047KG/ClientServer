@@ -79,6 +79,7 @@ public class Client {
 
     private void write() throws IOException {
         String message = input.getText();
+        if(message.isEmpty()) return;
         output.writeUTF(message);
         println(message);
         input.setText("");

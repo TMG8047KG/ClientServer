@@ -69,6 +69,7 @@ public class Server {
 
     private void write() throws IOException {
         String message = input.getText();
+        if(message.isEmpty()) return;
         println(message);
         for(ConnectedClient client : clientList){
             client.getOutput().writeUTF(message);
