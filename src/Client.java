@@ -31,13 +31,8 @@ public class Client {
         println("Starting client!");
 
         //Figure this out(make it able to reconnect)
-        new Thread(() -> {
-            try {
-                connect();
-            } catch (IOException e) {
-                println(e.getMessage());
-            }
-        }).start();
+        connect();
+
 
         input.addKeyListener(new KeyAdapter() {
             @Override
@@ -54,11 +49,24 @@ public class Client {
         });
     }
 
-    private void connect() throws IOException {
-        socket = new Socket(address, port);
-        output = new DataOutputStream(socket.getOutputStream());
-        in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-        println("Connected to the server!");
+    private void connect(){
+        new Thread(() -> {
+            try {
+                socket = new Socket(address, port);
+                output = new DataOutputStream(socket.getOutputStream());
+                in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+                output.write(666);
+                read();
+            }catch (Exception e){
+                println(e.getMessage());
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    println(ex.getMessage());
+                }
+                connect();
+            }
+        }).start();
     }
 
     public void read() {
@@ -104,6 +112,5 @@ public class Client {
         frame.setSize(800, 500);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
-        client.read();
     }
 }
